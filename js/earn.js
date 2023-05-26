@@ -58,6 +58,7 @@ async function Withdraw() {
 
 async function Compound() {
     try {
+        console.log(new Date().getTime() / 1000);
         await contractStake.methods.Compound()
             .send({
                 from: account
@@ -126,13 +127,13 @@ async function GetUserInfoAccount() {
     }
 }
 
-async function IsFriday() {
+async function IsFriday(time) {
     try {
         var val = await GetFriday();
         var now = new Date();
         var nowTs = new Date() / 1000;
 
-        if (((now.getTime() - val) / 15) % 7 == 0) {
+        if (((time - val) / 15) % 7 == 0) {
             //Friday
             if (now >= val && val <= (now + 15)) {
                 return true;
@@ -150,7 +151,7 @@ async function IsFriday() {
 async function GetFriday() {
     try {
         //var val = await contractBscStake.methods.Friday().call();
-        return Number(1684454400);
+        return Number(1682640000);
     }
     catch (error) {
         console.log(error);
@@ -264,9 +265,9 @@ async function WithdrawDeposit(deposit) {
     }
 }
 
-async function UnlockDeposit(id) {
+async function RelockDeposit(id) {
     try {
-        await contractStake.methods.UnlockDeposit(id.toString(), "1")
+        await contractStake.methods.RelockDeposit(id.toString())
             .send({
                 from: account
             })

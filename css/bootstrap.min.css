@@ -4990,7 +4990,7 @@ textarea.form-control-lg {
         float: left;
         padding-right: .5rem;
         color: #6c757d;
-        content: var(--bs-breadcrumb-divider, "/")
+        content: var(--bs-breadcrumb-divider, "../index.html")
     }
 
 .breadcrumb-item.active {

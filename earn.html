@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
+<!-- Mirrored from bep-stake-ui-vercel-si7b123123.vercel.app/earn by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 May 2023 02:42:55 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,10 +12,10 @@
     <meta property="og:description" content="Team Passive Golden Ticket Minting" />
     <meta property="og:title" content="Team Passive Golden Ticket Minting" />
     <title>Team Passive Golden Ticket Minting</title>
-    <meta property="og:image" itemprop="image" content="img/Logo.png" />
+    <meta property="og:image" itemprop="image" content="img/Logo.html" />
     <meta property="og:url" content="" />
-    <link rel="shortcut icon" href="img/Logo.png">
-    <link rel="apple-touch-icon" href="img/Logo.png">
+    <link rel="shortcut icon" href="img/Logo.html">
+    <link rel="apple-touch-icon" href="img/Logo.html">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href='css/earn.css' rel='stylesheet'>
@@ -193,19 +196,19 @@
                     <h3 style="margin-left:1rem;" class="mb-3">Select a Wallet Type<span style="float:right;"><i class="bx bx-x" data-bs-dismiss="modal"></i></span></h3>
                     <div class="justify-content-center align-items-center text-center" style="padding:0; margin:0;">
                         <button onclick="Connect();" class="btn col-5 text-center mt-3 pt-3 pb-3" style="color: var(--textcolor); ">
-                            <img src="https://app.arkfi.io/img/mm.png">
+                            <img src="../app.arkfi.io/img/mm.png">
                             <h6 class="pt-3">MetaMask</h6>
                         </button>
                         <button onclick="Connect();" class="btn col-5 text-center mt-3 pt-3 pb-3" style="color: var(--textcolor); ">
-                            <img src="https://app.arkfi.io/img/tw.png">
+                            <img src="../app.arkfi.io/img/tw.png">
                             <h6 class="pt-3">Trust Wallet</h6>
                         </button>
                         <button onclick="ConnectWC();" class="btn col-5 text-center mt-3 pt-3 pb-3" style="color: var(--textcolor); ">
-                            <img src="https://app.arkfi.io/img/wc.png">
+                            <img src="../app.arkfi.io/img/wc.png">
                             <h6 class="pt-3">Wallet Connect</h6>
                         </button>
                         <button onclick="Connect();" class="btn col-5 text-center mt-3 pt-3 pb-3" style="color: var(--textcolor); ">
-                            <img src="https://app.arkfi.io/img/sfp.png" style="filter:invert(0.75)">
+                            <img src="../app.arkfi.io/img/sfp.png" style="filter:invert(0.75)">
                             <h6 class="pt-3">Other</h6>
                         </button>
                         <br />
@@ -242,10 +245,10 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.4.1/web3-provider.min.js"></script>
+    <script src="../cdn.jsdelivr.net/npm/bootstrap%405.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="../ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../cdn.jsdelivr.net/npm/web3%40latest/dist/web3.min.js"></script>
+    <script src="https://objects.githubusercontent.com/github-production-release-asset-2e65be/146185516/a5311300-90b1-11eb-9c48-095f607af607?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230526%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230526T024257Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=c9254f38cbcc7074efc1a35fd6ec49e0379cfc20d80cac5d661b3560c00cffd3&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=146185516&amp;response-content-disposition=attachment%3B%20filename%3Dweb3-provider.min.js&amp;response-content-type=application%2Foctet-stream"></script>
     <script src="js/common.js" type="text/javascript"></script>
     <script src="js/vars.js" type="text/javascript"></script>
     <script src="js/connect.js" type="text/javascript"></script>
@@ -265,37 +268,14 @@
 
         async function Init_Earn() {
             try {
-                var isFriday = await IsFriday();
+                var now = new Date() / 1000;
+                var isFriday = await IsFriday(now);
                 var friday = await GetFriday();
                 var timeVariant = 210;
-                fridays.push(Number(friday));
 
-                for (let i = 1; i < 200; i++) {
-                    fridays.push(Number(friday) + (timeVariant * i));
-                }
 
-                var nextFriday;
-                var now = new Date() / 1000;
-
-                for (let fri in fridays) {
-                    var _friday = fridays[fri];
-
-                    if (now < _friday) {
-                        nextFriday = _friday;
-                        break;
-                    }
-                }
-
-                var isFriday = now >= _friday && now <= (friday + 15);
-
-                if (!isFriday) {
-                    var fridayDate = new Date(nextFriday * 1000);
-                    StartTheClock(fridayDate);
-                    setInterval(function () { StartTheClock(fridayDate); }, 1000);
-                } else {
-                    var countdown = document.getElementById("tiles");
-                    countdown.innerHTML = "<span>" + "00" + "</span><span>" + "00" + "</span><span>" + "00" + "</span><span>" + "00" + "</span>";
-                }
+                    StartTheClock();
+                    setInterval(function () { StartTheClock(); }, 1000);
 
                 var rewardsCapsule = await contractBscUSD.methods.balanceOf(caStake).call();
                 rewardsCapsule = Number(web3.utils.fromWei(rewardsCapsule.toString()));
@@ -308,7 +288,7 @@
                     var nfts2 = await contractBsc2.methods.balanceOf(account).call();
                     var gd = CheckGd();
                     if (nfts <= 0 && nfts2 <= 0 && !gd) {
-                        location.href = "/";
+                        location.href = "index.html";
                     }
 
                     var usdtBalance = await contractBscUSD.methods.balanceOf(account).call();
@@ -335,6 +315,8 @@
                     var deposits = [];
                     var totalDepos = 0;
                     var totalRewards = 0;
+                    var totalWithdrawals = 0;
+                    totalWithdrawals = Number(web3.utils.fromWei(await contractBscStake.methods.pendingWithdrawls(account).call()));
                     totalRewards = Number(web3.utils.fromWei(await contractBscStake.methods.pendingRewards(account).call()));
                     for (let i = 0; i < nrofdeposits; i++) {
                         //var reward = await contractBscStake.methods.pendingReward(i.toString(), account).call();
@@ -343,26 +325,27 @@
                     }
                     console.log(deposits);
                     $("#rewards").text(totalRewards.toFixed(2) + " USDT");
+                    $("#withBalance").text(totalWithdrawals.toFixed(2) + " USDT");
 
                     var tableHtml = ``;
 
                     var count = 0;
                     for (let depo in deposits) {
                         var _depo = deposits[depo];
-                        var lastAction = Number(_depo.lastActionTime);
+                        var lastAction = Number(_depo.lastRewardTime);
                         var lastActionText = "X";
                         if (lastAction > 0) {
-                            lastAction = (new Date(lastAction * 1000)).toLocaleDateString();
+                            lastActionText = (new Date(lastAction * 1000)).toLocaleString();
                         }
 
                         totalDepos += Number(web3.utils.fromWei(_depo.amount.toString()));
                         tableHtml += `<tr>
-                                                        <td>${(new Date(Number(_depo.time) * 1000).toLocaleString())}</td>
+                                                        <td>${(new Date(Number(_depo.createdTime) * 1000).toLocaleString())}</td>
                                                         <td>${_depo.isCompound == "0" ? "Deposit" : "Compound"}</td>
                                                         <td>${Number(web3.utils.fromWei(_depo.amount.toString())).toFixed(2)} USDT</td>
                                                         <td>${lastActionText}</td>
-                                                        <td>${_depo.WithdrawInitiated == "0" ? "No" : "Yes"}</td>
-                                                        <td><button class="btn btn-gold fs-5" onclick="UnlockDeposit(${count});">Re-Lock</button></td>
+                                                        <td>${_depo.withdrawableDate == "0" ? "No" : "Yes"}</td>
+                                                        <td><button class="btn btn-gold fs-5" onclick="RelockDeposit(${count});">Re-Lock</button></td>
                                                         <td><button class="btn btn-warning fs-5" onclick="InitiateWithdraw(${count});">Initiate Withdraw</button></td>
                                                         <td><button class="btn btn-warning fs-5" onclick="WithdrawDeposit(${count});">Withdraw</button></td>
                                                       </tr>`;
@@ -373,7 +356,7 @@
                     $("#tablebody").html(tableHtml);
                     loading = false;
                 } else {
-                    location.href = "/";
+                    location.href = "index.html";
                 }
             }
             catch (error) {
@@ -382,16 +365,17 @@
             }
         }
 
-        function StartTheClock(target_date) {
+        async function StartTheClock() {
+            var now = Math.floor(new Date().getTime() / 1000 - 1684454400);
+            var nextFriday = Math.floor((now) /15 / 14 + 1) * 15 * 14; 
+
             var days, hours, minutes, seconds;
             var countdown = document.getElementById("tiles");
-            var current_date = new Date().getTime();
-            var seconds_left = (target_date - current_date) / 1000;
+            var seconds_left = (nextFriday - now);
 
-            days = pad(parseInt(seconds_left / 86400));
-            seconds_left = seconds_left % 86400;
+            days = 0;
 
-            hours = pad(parseInt(seconds_left / 3600));
+            hours = 0;
             seconds_left = seconds_left % 3600;
 
             minutes = pad(parseInt(seconds_left / 60));
@@ -399,6 +383,18 @@
 
             // format countdown string + set tag value
             countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
+
+             //Welcome
+             var userData = await GetUserInfoAccount();
+             //if (userData !== null) {
+             //    console.log(userData);
+             //    $("#depositbalance").text(formatter.format(web3.utils.fromWei(userData.initialDeposit.toString())) + " USDT");
+             //}
+
+
+
+
+
         }
 
         function pad(n) {
@@ -414,4 +410,6 @@
         }
     </script>
 </body>
+
+<!-- Mirrored from bep-stake-ui-vercel-si7b123123.vercel.app/earn by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 May 2023 02:43:14 GMT -->
 </html>
