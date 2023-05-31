@@ -379,11 +379,16 @@
                     if(!isCompoundEnabled){
                         $("#reinvest-button").attr("disabled", 'true')
                         $("#initiate-claim-button").attr("disabled", 'true')
+                    }else{
+                        $('#reinvest-button').removeAttr('disabled');
+                        $('#initiate-claim-button').removeAttr('disabled');
                     }
 
                     var isClaimEnabled = (userData.ClaimInitiateDate != 0 && now > userData.ClaimInitiateDate + 7 * oneDaySecond);
                     if(!isClaimEnabled){
                         $('#claim-button').attr('disabled', 'true');
+                    }else{
+                        $('#claim-button').removeAttr('disabled');
                     }
 
 
