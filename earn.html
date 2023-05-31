@@ -340,7 +340,7 @@
                             lastRewardTimeText = (new Date(lastRewardTime * 1000)).toLocaleString();
                         }
                         var isRelockEnabled = (now > _depo.lockedTime + 56 * twoWeekSecond) ? true : false; 
-                        var isInitiateWithdrawEnabled = (count != 0 && isFriday(now) && depo.withdrawableDate == 0 && depo.currentState <= 1 && now > depo.lockedTime + 60 * oneDaySecond) 
+                        var isInitiateWithdrawEnabled = (count != 0 && IsFriday(now) && depo.withdrawableDate == 0 && depo.currentState <= 1 && now > depo.lockedTime + 60 * oneDaySecond) 
                             ? true : false;
                         var isWithdrawEnabled = (count != 0 && depo.withdrawableDate != 0 && now > depo.withdrawableDate)
                             ? true : false;
@@ -364,7 +364,7 @@
                     $("#depositbalance").text(formatter.format(totalDepos) + " USDT");
                     $("#tablebody").html(tableHtml);
                     //condition is equal for compound and initiate claim
-                    var isCompoundEnabled = (isFriday() && userData.ClaimInitiateDate == 0);
+                    var isCompoundEnabled = (IsFriday() && userData.ClaimInitiateDate == 0);
                     if(!isCompoundEnabled){
                         $("#reinvest-button").attr("disabled", 'true')
                         $("#initiate-claim-button").attr("disabled", 'true')
