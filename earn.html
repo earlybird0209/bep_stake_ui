@@ -332,8 +332,7 @@
                     var thisFriday = Math.floor((now) / twoWeekSecond) * twoWeekSecond; 
                     var count = 0;
                     var totalDepos = 0;
-                    for (let depo in deposits) {
-                        var _depo = deposits[depo];
+                    deposits.forEach(_depo => {
                         var lastRewardTime = Number(_depo.lastRewardTime);
                         var lastRewardTimeText = "X";
                         if (lastRewardTime > 0) {
@@ -357,9 +356,20 @@
                                 <td><button class="btn btn-warning fs-5" ${isWithdrawEnabled?"":"disabled"} onclick="WithdrawDeposit(${count});">Withdraw</button></td>
                                 </tr>`;
                         }
-                        else
+                        else{
+                            tableHtml += `<tr>
+                                <td>${(new Date(Number(_depo.createdTime) * 1000).toLocaleString())}</td>
+                                <td>${_depo.isCompound == "0" ? "Deposit" : "Compound"}</td>
+                                <td>${Number(web3.utils.fromWei(_depo.amount.toString())).toFixed(2)} USDT</td>
+                                <td>${lastRewardTimeText}</td>
+                                <td>${_depo.withdrawableDate == "0" ? "No" : "Yes"}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>`;
+                        }
                         count++;
-                    }
+                    })
 
                     $("#depositbalance").text(formatter.format(totalDepos) + " USDT");
                     $("#tablebody").html(tableHtml);
