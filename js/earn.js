@@ -127,9 +127,9 @@ async function GetUserInfoAccount() {
     }
 }
 
-async function IsFriday(time) {
+function IsFriday(time) {
     try {
-        var Friday = await GetFriday();
+        var Friday = GetFriday();
 
         if (Math.floor((time - Friday) / oneDaySecond) % cycleDays == 0) {
             return true;
@@ -142,7 +142,7 @@ async function IsFriday(time) {
     }
 }
 
-async function GetFriday() {
+function GetFriday() {
     try {
         //var val = await contractBscStake.methods.Friday().call();
         return Number(1682640000);
