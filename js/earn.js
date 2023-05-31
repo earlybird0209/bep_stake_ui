@@ -127,31 +127,7 @@ async function GetUserInfoAccount() {
     }
 }
 
-function IsFriday(time) {
-    try {
-        var Friday = GetFriday();
 
-        if (Math.floor((time - Friday) / oneDaySecond) % cycleDays == 0) {
-            return true;
-        }        
-
-        return false;
-    }
-    catch {
-        return false;
-    }
-}
-
-function GetFriday() {
-    try {
-        //var val = await contractBscStake.methods.Friday().call();
-        return Number(1682640000);
-    }
-    catch (error) {
-        console.log(error);
-        return 0;
-    }
-}
 
 async function Approve_Stake() {
     try {

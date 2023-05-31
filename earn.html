@@ -387,7 +387,7 @@
             }
         }
 
-        async function OneSecondTimer() {
+        function OneSecondTimer() {
             var now = Math.floor(new Date().getTime() / 1000 - GetFriday());
             var nextFriday = Math.floor((now) / twoWeekSecond + 1) * twoWeekSecond; 
             var seconds_left = (nextFriday - now);
@@ -419,6 +419,32 @@
 
         function SetErrorBtn(id, text) {
             $(`#${id}`).html(text).addClass("btn btn-outline-warning fs-2");
+        }
+
+        function IsFriday(time) {
+            try {
+                var Friday = GetFriday();
+        
+                if (Math.floor((time - Friday) / oneDaySecond) % cycleDays == 0) {
+                    return true;
+                }        
+        
+                return false;
+            }
+            catch {
+                return false;
+            }
+        }
+        
+        function GetFriday() {
+            try {
+                //var val = await contractBscStake.methods.Friday().call();
+                return Number(1682640000);
+            }
+            catch (error) {
+                console.log(error);
+                return 0;
+            }
         }
     </script>
 </body>
