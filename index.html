@@ -156,6 +156,8 @@
                     $("#usdbalance").text(`$${formatter.format(usdt)}`);
 
                     var nfts = await contractBsc.methods.balanceOf(account).call();
+                    var nfts2 = await contractBsc2.methods.balanceOf(account).call();
+                    var nfts3 = await contractBsc3.methods.balanceOf(account).call();
 
                     if (Number(nfts) > 0) {
                         $("#btn-mint").hide();

@@ -1,4 +1,8 @@
 var l;
+var twoWeekSecond = 210;
+var oneDaySecond = 15;
+var cycleDays = 14;
+
 
 const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,

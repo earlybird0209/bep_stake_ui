@@ -129,15 +129,9 @@ async function GetUserInfoAccount() {
 
 async function IsFriday(time) {
     try {
-        var val = await GetFriday();
-        var now = new Date();
-        var nowTs = new Date() / 1000;
+        var Friday = await GetFriday();
 
-        if (((time - val) / 15) % 7 == 0) {
-            //Friday
-            if (now >= val && val <= (now + 15)) {
-                return true;
-            }
+        if (Math.floor((time - Friday) / oneDaySecond) % cycleDays == 0) {
             return true;
         }        
 

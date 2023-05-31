@@ -109,7 +109,7 @@
                                     <button class="btn-gold mt-3 mx-2 w-45" onclick="OpenDeposit();">
                                         DEPOSIT
                                     </button>
-                                    <button class="btn-gold mt-3 mx-2 w-45" onclick="Reinvest();">
+                                    <button class="btn-gold mt-3 mx-2 w-45" id="reinvest-button" onclick="Reinvest();">
                                         REINVEST
                                     </button>
                                 </div>
@@ -120,13 +120,13 @@
                     <div class="col-md-6 mt-3">
                         <div class="card" style="background: transparent; width: 100% !important">
                             <div class="card-body card-mob p-5 pt-4 pb-0 m-3" style="width:95%; margin-left: auto !important; margin-right: auto !important; background: linear-gradient(90deg, rgba(247,162,28,1) 15%, rgba(253,238,88,1) 50%, rgba(247,162,28,1) 85%); ">
-                                <h6 class="text-brown mt-5 pt-4 fs-4">Available For Withdraw <span class="fr" id="withBalance">0 USDT</span></h6>
-                                <h6 class="text-brown mt-4 fs-4">EARNINGS BEING GENERATED <span class="fr" id="usdbalance">Up to 18%</span></h6>
+                                <h6 class="text-brown mt-5 pt-4 fs-4">Available Rewards <span class="fr" id="rewards">0 USDT</span></h6>
+                                <h6 class="text-brown mt-4 fs-4">Available Claims <span class="fr" id="claims">0 USDT</span></h6>
                                 <div class="d-flex flex-wrap justify-content-center pb-4 mt-3">
-                                    <button onclick="InitiateRewards();" class="mt-3 mx-1 btn-gold">
+                                    <button onclick="InitiateRewards();" id="initiate-claim-button" class="mt-3 mx-1 btn-gold">
                                         INITIATE REWARDS
                                     </button>
-                                    <button onclick="Claim();" class="mt-3 mx-1 btn-gold">
+                                    <button onclick="Claim();" id="claim-button" class="mt-3 mx-1 btn-gold">
                                         TAKE REWARDS
                                     </button>
                                 </div>
@@ -150,8 +150,8 @@
                                     </div>
                                 </div>
                                 <hr style="background-color:white; height:2px; opacity:0.8; width:100%;" />
-                                <p class="text-white text-uppercase mb-0" style="text-shadow: 2px 2px black">Available for Withdraw</p>
-                                <h4 class="text-gold text-uppercase mt-0 pt-0" style="text-shadow: 2px 2px black" id="rewards">0.0000 USDT</h4>
+                                <p class="text-white text-uppercase mb-0" style="text-shadow: 2px 2px black">Available Withdrawals</p>
+                                <h4 class="text-gold text-uppercase mt-0 pt-0" style="text-shadow: 2px 2px black" id="withBalance">0.0000 USDT</h4>
                             </div>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                     <div class="col-12 mt-4 pb-5">
                         <table class="table">
                             <thead>
-                                <tr style="">
+                                <tr>
                                     <th class="fs-5">Deposited</th>
                                     <th class="fs-5">Type</th>
                                     <th class="fs-5">Amount</th>
@@ -259,23 +259,16 @@
             if (account == "" && await IsConnected()) {
                 await Connect();
             }
-
+            setInterval(OneSecondTimer, 1000)
+            setTimeout(function () { setInterval(Init_Earn, twoWeekSecond * 1000); }, 1000 )
+            OneSecondTimer()
             Init_Earn();
         });
 
         var loading = false;
-        var fridays = [];
 
         async function Init_Earn() {
             try {
-                var now = new Date() / 1000;
-                var isFriday = await IsFriday(now);
-                var friday = await GetFriday();
-                var timeVariant = 210;
-
-
-                    StartTheClock();
-                    setInterval(function () { StartTheClock(); }, 1000);
 
                 var rewardsCapsule = await contractBscUSD.methods.balanceOf(caStake).call();
                 rewardsCapsule = Number(web3.utils.fromWei(rewardsCapsule.toString()));
@@ -286,8 +279,9 @@
                     loading = true;
                     var nfts = await contractBsc.methods.balanceOf(account).call();
                     var nfts2 = await contractBsc2.methods.balanceOf(account).call();
+                    var nfts3 = await contractBsc3.methods.balanceOf(account).call();
                     var gd = CheckGd();
-                    if (nfts <= 0 && nfts2 <= 0 && !gd) {
+                    if (nfts <= 0 && nfts2 <= 0 && nfts3 <= 0 && !gd) {
                         location.href = "index.html";
                     }
 
@@ -313,11 +307,11 @@
 
                     var nrofdeposits = Number(userData.NoOfDeposits);
                     var deposits = [];
-                    var totalDepos = 0;
                     var totalRewards = 0;
-                    var totalWithdrawals = 0;
+                    var totalClaims = 0;
                     totalWithdrawals = Number(web3.utils.fromWei(await contractBscStake.methods.pendingWithdrawls(account).call()));
                     totalRewards = Number(web3.utils.fromWei(await contractBscStake.methods.pendingRewards(account).call()));
+                    totalClaims = Number(web3.utils.fromWei(await contractBscStake.methods.pendingClaims(account).call()));
                     for (let i = 0; i < nrofdeposits; i++) {
                         //var reward = await contractBscStake.methods.pendingReward(i.toString(), account).call();
                         //totalRewards += Number(web3.utils.fromWei(reward));
@@ -326,34 +320,56 @@
                     console.log(deposits);
                     $("#rewards").text(totalRewards.toFixed(2) + " USDT");
                     $("#withBalance").text(totalWithdrawals.toFixed(2) + " USDT");
+                    $("#claims").text(totalClaims.toFixed(2) + " USDT");
 
                     var tableHtml = ``;
-
+                    var now = new Date().getTime() / 1000;
+                    var thisFriday = Math.floor((now) / twoWeekSecond) * twoWeekSecond; 
                     var count = 0;
                     for (let depo in deposits) {
                         var _depo = deposits[depo];
-                        var lastAction = Number(_depo.lastRewardTime);
-                        var lastActionText = "X";
-                        if (lastAction > 0) {
-                            lastActionText = (new Date(lastAction * 1000)).toLocaleString();
+                        var lastRewardTime = Number(_depo.lastRewardTime);
+                        var lastRewardTimeText = "X";
+                        if (lastRewardTime > 0) {
+                            lastRewardTimeText = (new Date(lastRewardTime * 1000)).toLocaleString();
                         }
-
+                        var isRelockEnabled = (now > _depo.lockedTime + 56 * twoWeekSecond) ? true : false; 
+                        var isInitiateWithdrawEnabled = (count != 0 && isFriday(now) && depo.withdrawableDate == 0 && depo.currentState <= 1 && now > depo.lockedTime + 60 * oneDaySecond) 
+                            ? true : false;
+                        var isWithdrawEnabled = (count != 0 && depo.withdrawableDate != 0 && now > depo.withdrawableDate)
+                            ? true : false;
                         totalDepos += Number(web3.utils.fromWei(_depo.amount.toString()));
-                        tableHtml += `<tr>
-                                                        <td>${(new Date(Number(_depo.createdTime) * 1000).toLocaleString())}</td>
-                                                        <td>${_depo.isCompound == "0" ? "Deposit" : "Compound"}</td>
-                                                        <td>${Number(web3.utils.fromWei(_depo.amount.toString())).toFixed(2)} USDT</td>
-                                                        <td>${lastActionText}</td>
-                                                        <td>${_depo.withdrawableDate == "0" ? "No" : "Yes"}</td>
-                                                        <td><button class="btn btn-gold fs-5" onclick="RelockDeposit(${count});">Re-Lock</button></td>
-                                                        <td><button class="btn btn-warning fs-5" onclick="InitiateWithdraw(${count});">Initiate Withdraw</button></td>
-                                                        <td><button class="btn btn-warning fs-5" onclick="WithdrawDeposit(${count});">Withdraw</button></td>
-                                                      </tr>`;
+                        if(count > 0){
+                            tableHtml += `<tr>
+                                <td>${(new Date(Number(_depo.createdTime) * 1000).toLocaleString())}</td>
+                                <td>${_depo.isCompound == "0" ? "Deposit" : "Compound"}</td>
+                                <td>${Number(web3.utils.fromWei(_depo.amount.toString())).toFixed(2)} USDT</td>
+                                <td>${lastRewardTimeText}</td>
+                                <td>${_depo.withdrawableDate == "0" ? "No" : "Yes"}</td>
+                                <td><button class="btn btn-gold fs-5 " ${isRelockEnabled?"":"disabled"} onclick="RelockDeposit(${count});">Re-Lock</button></td>
+                                <td><button class="btn btn-warning fs-5" ${isInitiateWithdrawEnabled?"":"disabled"} onclick="InitiateWithdraw(${count});">Initiate Withdraw</button></td>
+                                <td><button class="btn btn-warning fs-5" ${isWithdrawEnabled?"":"disabled"} onclick="WithdrawDeposit(${count});">Withdraw</button></td>
+                                </tr>`;
+                        }
+                        else
                         count++;
                     }
 
                     $("#depositbalance").text(formatter.format(totalDepos) + " USDT");
                     $("#tablebody").html(tableHtml);
+                    //condition is equal for compound and initiate claim
+                    var isCompoundEnabled = (isFriday() && userData.ClaimInitiateDate == 0);
+                    if(!isCompoundEnabled){
+                        $("#reinvest-button").attr("disabled", 'true')
+                        $("#initiate-claim-button").attr("disabled", 'true')
+                    }
+
+                    var isClaimEnabled = (userData.ClaimInitiateDate != 0 && now > userData.ClaimInitiateDate + 7 * oneDaySecond);
+                    if(!isClaimEnabled){
+                        $('#claim-button').attr('disabled', 'true');
+                    }
+
+
                     loading = false;
                 } else {
                     location.href = "index.html";
@@ -365,9 +381,9 @@
             }
         }
 
-        async function StartTheClock() {
-            var now = Math.floor(new Date().getTime() / 1000 - 1684454400);
-            var nextFriday = Math.floor((now) /15 / 14 + 1) * 15 * 14; 
+        async function OneSecondTimer() {
+            var now = Math.floor(new Date().getTime() / 1000 - GetFriday());
+            var nextFriday = Math.floor((now) / twoWeekSecond + 1) * twoWeekSecond; 
 
             var days, hours, minutes, seconds;
             var countdown = document.getElementById("tiles");
