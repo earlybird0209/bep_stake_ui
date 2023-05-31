@@ -260,7 +260,10 @@
                 await Connect();
             }
             setInterval(OneSecondTimer, 1000)
-            setTimeout(function () { setInterval(Init_Earn, twoWeekSecond * 1000); }, 1000 )
+            var now = Math.floor(new Date().getTime() / 1000 - GetFriday());
+            var nextFriday = Math.floor((now) / twoWeekSecond + 1) * twoWeekSecond; 
+            var seconds_left = (nextFriday - now);
+            setTimeout(function () { setInterval(Init_Earn, twoWeekSecond * 1000); }, seconds_left )
             OneSecondTimer()
             Init_Earn();
         });
@@ -384,10 +387,10 @@
         async function OneSecondTimer() {
             var now = Math.floor(new Date().getTime() / 1000 - GetFriday());
             var nextFriday = Math.floor((now) / twoWeekSecond + 1) * twoWeekSecond; 
+            var seconds_left = (nextFriday - now);
 
             var days, hours, minutes, seconds;
             var countdown = document.getElementById("tiles");
-            var seconds_left = (nextFriday - now);
 
             days = 0;
 
@@ -399,16 +402,6 @@
 
             // format countdown string + set tag value
             countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
-
-             //Welcome
-             var userData = await GetUserInfoAccount();
-             //if (userData !== null) {
-             //    console.log(userData);
-             //    $("#depositbalance").text(formatter.format(web3.utils.fromWei(userData.initialDeposit.toString())) + " USDT");
-             //}
-
-
-
 
 
         }
