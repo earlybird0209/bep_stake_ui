@@ -265,7 +265,7 @@
             var now = Math.floor(new Date().getTime() / 1000 - GetFriday());
             var nextFriday = Math.floor((now) / twoWeekSecond + 1) * twoWeekSecond; 
             var seconds_left = (nextFriday - now);
-            setTimeout(function () { setInterval(Init_Earn, twoWeekSecond * 1000); }, seconds_left * 1000 )
+            setTimeout(function () { setInterval(Init_Earn, twoWeekSecond * 1000); }, seconds_left * 1000 - 5 )
             OneSecondTimer()
             Init_Earn();
         });
