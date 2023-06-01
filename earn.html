@@ -338,7 +338,7 @@
                         if (lastRewardTime > 0) {
                             lastRewardTimeText = (new Date(lastRewardTime * 1000)).toLocaleString();
                         }
-                        var isRelockEnabled = (now > Number(depo.lockedTime) + 60 * twoWeekSecond) ? true : false; 
+                        var isRelockEnabled = (now > Number(depo.lockedTime) + 60 * oneDaySecond) ? true : false; 
                         var isInitiateWithdrawEnabled = (count != 0 && IsFriday(now) && (Number(depo.withdrawableDate)) == 0 && Number(depo.currentState) <= 1 && now > Number(depo.lockedTime) + 60 * oneDaySecond) 
                             ? true : false;
                         var isWithdrawEnabled = (count != 0 && (Number(depo.withdrawableDate)) != 0 && now > (Number(depo.withdrawableDate)))
