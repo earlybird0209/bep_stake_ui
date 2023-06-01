@@ -265,7 +265,6 @@
             var now = Math.floor(new Date().getTime() / 1000 - GetFriday());
             var nextFriday = Math.floor((now) / twoWeekSecond + 1) * twoWeekSecond; 
             var seconds_left = (nextFriday - now);
-            setTimeout(function () { setInterval(Init_Earn, twoWeekSecond * 1000); }, seconds_left * 1000 - 5000 )
             OneSecondTimer()
             Init_Earn();
         });
@@ -423,7 +422,9 @@
             // format countdown string + set tag value
             countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
 
-
+            if(seconds_left == 10){
+                Init_Earn()
+            }
         }
 
         function pad(n) {
