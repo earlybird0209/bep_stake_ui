@@ -375,7 +375,7 @@
                     $("#depositbalance").text(formatter.format(totalDepos) + " USDT");
                     $("#tablebody").html(tableHtml);
                     //condition is equal for compound and initiate claim
-                    var isCompoundEnabled = (IsFriday() && Number(userData.ClaimInitiateDate) == 0);
+                    var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0);
                     if(!isCompoundEnabled){
                         $("#reinvest-button").attr("disabled", 'true')
                         $("#initiate-claim-button").attr("disabled", 'true')
