@@ -303,6 +303,16 @@
                         $("#btn-deposit").hide();
                     }
 
+                    var totalRewards = 0;
+                    var totalClaims = 0;
+                    var totalWithdrawals = 0;
+                    totalWithdrawals = Number(web3.utils.fromWei(await contractBscStake.methods.pendingWithdrawls(account).call()));
+                    totalRewards = Number(web3.utils.fromWei(await contractBscStake.methods.pendingRewards(account).call()));
+                    totalClaims = Number(web3.utils.fromWei(await contractBscStake.methods.pendingClaims(account).call()));
+                    $("#rewards").text(totalRewards.toFixed(2) + " USDT");
+                    $("#withBalance").text(totalWithdrawals.toFixed(2) + " USDT");
+                    $("#claims").text(totalClaims.toFixed(2) + " USDT");
+                    
                     //Welcome
                     var userData = await GetUserInfoAccount();
                     //if (userData !== null) {
@@ -312,22 +322,13 @@
 
                     var nrofdeposits = Number(userData.NoOfDeposits);
                     var deposits = [];
-                    var totalRewards = 0;
-                    var totalClaims = 0;
-                    var totalWithdrawals = 0;
-                    totalWithdrawals = Number(web3.utils.fromWei(await contractBscStake.methods.pendingWithdrawls(account).call()));
-                    totalRewards = Number(web3.utils.fromWei(await contractBscStake.methods.pendingRewards(account).call()));
-                    totalClaims = Number(web3.utils.fromWei(await contractBscStake.methods.pendingClaims(account).call()));
                     for (let i = 0; i < nrofdeposits; i++) {
                         //var reward = await contractBscStake.methods.pendingReward(i.toString(), account).call();
                         //totalRewards += Number(web3.utils.fromWei(reward));
                         deposits.push(await contractBscStake.methods.memberDeposit(account, i.toString()).call());
                     }
                     console.log(deposits);
-                    $("#rewards").text(totalRewards.toFixed(2) + " USDT");
-                    $("#withBalance").text(totalWithdrawals.toFixed(2) + " USDT");
-                    $("#claims").text(totalClaims.toFixed(2) + " USDT");
-
+                    
                     var tableHtml = ``;
                     var now = new Date().getTime() / 1000;
                     var thisFriday = Math.floor((now) / twoWeekSecond) * twoWeekSecond; 
