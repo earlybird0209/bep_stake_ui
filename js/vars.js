@@ -1142,13 +1142,13 @@ const abiStake = [
 ];
 
 var account = ""; 
-var web3bsc = new Web3(new Web3.providers.HttpProvider(rpcs.BSCTEST.url));
+var web3 = new Web3(new Web3.providers.HttpProvider(rpcs.BSCTEST.url));
 
-var contractBsc = new web3bsc.eth.Contract(abi, ca);
-var contractBsc2 = new web3bsc.eth.Contract(abi2, ca2);
-var contractBsc3 = new web3bsc.eth.Contract(abi3, ca2);
-var contractBscUSD = new web3bsc.eth.Contract(abiUSD, caUSD);
-var contractBscStake = new web3bsc.eth.Contract(abiStake, caStake);
+var contractBsc = new web3.eth.Contract(abi, ca);
+var contractBsc2 = new web3.eth.Contract(abi2, ca2);
+var contractBsc3 = new web3.eth.Contract(abi3, ca2);
+var contractBscUSD = new web3.eth.Contract(abiUSD, caUSD);
+var contractBscStake = new web3.eth.Contract(abiStake, caStake);
 
 async function Init_Master() {
     var location = window.location.pathname;
