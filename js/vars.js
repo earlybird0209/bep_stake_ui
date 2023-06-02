@@ -1135,7 +1135,7 @@ const abiStake = [
     "stateMutability": "view",
     "type": "function"
   }
-]
+];
 
 var account = ""; 
 var web3 = new Web3(new Web3.providers.HttpProvider(rpcs.BSCTEST.url));
