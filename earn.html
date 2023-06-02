@@ -278,7 +278,9 @@
                 var rewardsCapsule = await contractBscUSD.methods.balanceOf(caStake).call();
                 rewardsCapsule = Number(web3.utils.fromWei(rewardsCapsule.toString()));
                 $("#rewardsCapsule").text(rewardsCapsule.toFixed(0) + " USDT");
-
+                var now = new Date().getTime() / 1000;
+                var thisFriday = Math.floor((now) / twoWeekSecond) * twoWeekSecond; 
+                
                 if (account !== "") {
                     if (loading) { return; }
                     loading = true;
@@ -289,7 +291,7 @@
                     if (nfts <= 0 && nfts2 <= 0 && nfts3 <= 0 && !gd) {
                         location.href = "index.html";
                     }
-                    
+
                     var userData = await GetUserInfoAccount();
 
                     //condition is equal for compound and initiate claim
@@ -334,8 +336,6 @@
                     console.log(deposits);
                     
                     var tableHtml = ``;
-                    var now = new Date().getTime() / 1000;
-                    var thisFriday = Math.floor((now) / twoWeekSecond) * twoWeekSecond; 
                     var count = 0;
                     var totalDepos = 0;
                     deposits.forEach(depo => {
