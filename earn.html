@@ -290,12 +290,38 @@
                         location.href = "index.html";
                     }
 
+                    //condition is equal for compound and initiate claim
+                    var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0);
+                    if(!isCompoundEnabled){
+                        $("#reinvest-button").attr("disabled", 'true')
+                        $("#initiate-claim-button").attr("disabled", 'true')
+                    }else{
+                        $('#reinvest-button').removeAttr('disabled');
+                        $('#initiate-claim-button').removeAttr('disabled');
+                    }
+
+                    var isClaimEnabled = (Number(userData.ClaimInitiateDate) != 0 && now > Number(userData.ClaimInitiateDate) + 7 * oneDaySecond);
+                    if(!isClaimEnabled){
+                        $('#claim-button').attr('disabled', 'true');
+                    }else{
+                        $('#claim-button').removeAttr('disabled');
+                    }
+
+                    
+                    var usdtBalance = await contractBscUSD.methods.balanceOf(account).call();
+                    usdtBalance = Number(web3.utils.fromWei(usdtBalance.toString()));
+                    $("#usdbalance").text(formatter.format(usdtBalance) + " USDT");
+                    $("#usdbalance3").text(formatter.format(usdtBalance) + " USDT");
+
+                    if (await IsAllowed_Stake()) {
+                        $("#btn-approve").hide();
+                        $("#btn-deposit").show();
+                    } else {
+                        $("#btn-approve").show();
+                        $("#btn-deposit").hide();
+                    }
                     //Welcome
                     var userData = await GetUserInfoAccount();
-                    //if (userData !== null) {
-                    //    console.log(userData);
-                    //    $("#depositbalance").text(formatter.format(web3.utils.fromWei(userData.initialDeposit.toString())) + " USDT");
-                    //}
 
                     var nrofdeposits = Number(userData.NoOfDeposits);
                     var deposits = [];
@@ -353,36 +379,7 @@
 
                     $("#depositbalance").text(formatter.format(totalDepos) + " USDT");
                     $("#tablebody").html(tableHtml);
-                    //condition is equal for compound and initiate claim
-                    var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0);
-                    if(!isCompoundEnabled){
-                        $("#reinvest-button").attr("disabled", 'true')
-                        $("#initiate-claim-button").attr("disabled", 'true')
-                    }else{
-                        $('#reinvest-button').removeAttr('disabled');
-                        $('#initiate-claim-button').removeAttr('disabled');
-                    }
-
-                    var isClaimEnabled = (Number(userData.ClaimInitiateDate) != 0 && now > Number(userData.ClaimInitiateDate) + 7 * oneDaySecond);
-                    if(!isClaimEnabled){
-                        $('#claim-button').attr('disabled', 'true');
-                    }else{
-                        $('#claim-button').removeAttr('disabled');
-                    }
-
                     
-                    var usdtBalance = await contractBscUSD.methods.balanceOf(account).call();
-                    usdtBalance = Number(web3.utils.fromWei(usdtBalance.toString()));
-                    $("#usdbalance").text(formatter.format(usdtBalance) + " USDT");
-                    $("#usdbalance3").text(formatter.format(usdtBalance) + " USDT");
-
-                    if (await IsAllowed_Stake()) {
-                        $("#btn-approve").hide();
-                        $("#btn-deposit").show();
-                    } else {
-                        $("#btn-approve").show();
-                        $("#btn-deposit").hide();
-                    }
 
                     var totalRewards = 0;
                     var totalClaims = 0;
