@@ -289,6 +289,8 @@
                     if (nfts <= 0 && nfts2 <= 0 && nfts3 <= 0 && !gd) {
                         location.href = "index.html";
                     }
+                    
+                    var userData = await GetUserInfoAccount();
 
                     //condition is equal for compound and initiate claim
                     var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0);
@@ -321,7 +323,6 @@
                         $("#btn-deposit").hide();
                     }
                     //Welcome
-                    var userData = await GetUserInfoAccount();
 
                     var nrofdeposits = Number(userData.NoOfDeposits);
                     var deposits = [];
