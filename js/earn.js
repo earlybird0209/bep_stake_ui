@@ -4,7 +4,7 @@ async function TakeAction(id, action) {
         //1 = claim
         //2 = withdraw
         return;
-        await contractStake.methods.InitiateAction(id.toString(), action.toString())
+        await contractBscStake.methods.InitiateAction(id.toString(), action.toString())
             .send({
                 from: account
             })
@@ -22,7 +22,7 @@ async function TakeAction(id, action) {
 
 async function Claim() {
     try {
-        await contractStake.methods.Claim()
+        await contractBscStake.methods.Claim()
             .send({
                 from: account
             })
@@ -40,7 +40,7 @@ async function Claim() {
 
 async function Withdraw() {
     try {
-        await contractStake.methods.Withdraw()
+        await contractBscStake.methods.Withdraw()
             .send({
                 from: account
             })
@@ -59,7 +59,7 @@ async function Withdraw() {
 async function Compound() {
     try {
         console.log(new Date().getTime() / 1000);
-        await contractStake.methods.Compound()
+        await contractBscStake.methods.Compound()
             .send({
                 from: account
             })
@@ -91,7 +91,7 @@ async function Deposit() {
 
         value = web3.utils.toWei(value);
 
-        await contractStake.methods.deposit(value)
+        await contractBscStake.methods.deposit(value)
             .send({
                 from: account
             })
@@ -131,7 +131,7 @@ async function GetUserInfoAccount() {
 
 async function Approve_Stake() {
     try {
-        contractUSD.methods.approve(caStake, web3.utils.toWei("50000"))
+        contractBscUSD.methods.approve(caStake, web3.utils.toWei("50000"))
             .send({
                 from: account
             })
@@ -149,7 +149,7 @@ async function Approve_Stake() {
 
 async function IsAllowed_Stake() {
     try {
-        var amount = await contractUSD.methods.allowance(account, caStake).call();
+        var amount = await contractBscUSD.methods.allowance(account, caStake).call();
         amount = Number(web3.utils.fromWei(amount));        
 
         if (amount >= 1000) {
@@ -165,7 +165,7 @@ async function IsAllowed_Stake() {
 
 async function Reinvest() {
     try {
-        await contractStake.methods.Compound()
+        await contractBscStake.methods.Compound()
             .send({
                 from: account
             })
@@ -183,7 +183,7 @@ async function Reinvest() {
 
 async function InitiateRewards() {
     try {
-        await contractStake.methods.InitiateClaim()
+        await contractBscStake.methods.InitiateClaim()
             .send({
                 from: account
             })
@@ -201,7 +201,7 @@ async function InitiateRewards() {
 
 async function InitiateWithdraw(deposit) {
     try {
-        await contractStake.methods.InitiateWithdrawal(deposit.toString())
+        await contractBscStake.methods.InitiateWithdrawal(deposit.toString())
             .send({
                 from: account
             })
@@ -219,7 +219,7 @@ async function InitiateWithdraw(deposit) {
 
 async function WithdrawDeposit(deposit) {
     try {
-        await contractStake.methods.Withdraw(deposit.toString())
+        await contractBscStake.methods.Withdraw(deposit.toString())
             .send({
                 from: account
             })
@@ -237,7 +237,7 @@ async function WithdrawDeposit(deposit) {
 
 async function RelockDeposit(id) {
     try {
-        await contractStake.methods.RelockDeposit(id.toString())
+        await contractBscStake.methods.RelockDeposit(id.toString())
             .send({
                 from: account
             })
@@ -262,7 +262,7 @@ async function ChangeWithdrawAddr() {
             return;
         }
 
-        await contractStake.methods.changeWithdrawalAddress(target)
+        await contractBscStake.methods.changeWithdrawalAddress(target)
             .send({
                 from: account
             })

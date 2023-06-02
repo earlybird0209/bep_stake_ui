@@ -211,7 +211,7 @@
 
         async function Approve() {
             try {
-                contractUSD.methods.approve(ca, web3.utils.toWei("350"))
+                contractBscUSD.methods.approve(ca, web3.utils.toWei("350"))
                     .send({
                         from: account
                     })
@@ -229,7 +229,7 @@
 
         async function IsAllowed() {
             try {
-                var amount = await contractUSD.methods.allowance(account, ca).call();
+                var amount = await contractBscUSD.methods.allowance(account, ca).call();
                 amount = Number(web3.utils.fromWei(amount));
 
                 if (amount >= 350) {

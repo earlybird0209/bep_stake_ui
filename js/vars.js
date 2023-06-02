@@ -1147,9 +1147,7 @@ var contract2 = new web3.eth.Contract(abi2, ca2);
 var contractBsc2 = new web3bsc.eth.Contract(abi2, ca2);
 var contract3 = new web3.eth.Contract(abi3, ca2);
 var contractBsc3 = new web3bsc.eth.Contract(abi3, ca2);
-var contractUSD = new web3.eth.Contract(abiUSD, caUSD);
 var contractBscUSD = new web3bsc.eth.Contract(abiUSD, caUSD);
-var contractStake = new web3.eth.Contract(abiStake, caStake);
 var contractBscStake = new web3bsc.eth.Contract(abiStake, caStake);
 
 async function Init_Master() {
