@@ -193,7 +193,7 @@
 
         async function Mint() {
             try {
-                await contract.methods.safeMint()
+                await contractBsc.methods.safeMint()
                     .send({
                         from: account
                     })
