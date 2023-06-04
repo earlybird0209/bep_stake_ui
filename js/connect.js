@@ -111,7 +111,7 @@ var provider;
 
 async function ConnectWC() {
     try {
-        const provider = new WalletConnectProvider({
+        provider = new WalletConnectProvider({
             rpc: {
                 56: "https://bsc-dataseed.binance.org/",
                 1: "https://mainnet.infura.io/v3/",
