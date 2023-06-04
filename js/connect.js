@@ -106,30 +106,30 @@ async function Connect() {
     }
 }
 
-const WalletConnectProvider = window.WalletConnectProvider.default;
-var provider;
+// const WalletConnectProvider = window.WalletConnectProvider.default;
+// var provider;
 
 async function ConnectWC() {
     try {
-        provider = new WalletConnectProvider({
-            rpc: {
-                56: "https://bsc-dataseed.binance.org/",
-                1: "https://mainnet.infura.io/v3/",
-                137: "https://polygon-rpc.com/",
-                43114: "https://api.avax.network/ext/bc/C/rpc",
-                25: "https://rpc.artemisone.org/cronos"
-            }
-        });
+        // provider = new WalletConnectProvider({
+        //     rpc: {
+        //         56: "https://bsc-dataseed.binance.org/",
+        //         1: "https://mainnet.infura.io/v3/",
+        //         137: "https://polygon-rpc.com/",
+        //         43114: "https://api.avax.network/ext/bc/C/rpc",
+        //         25: "https://rpc.artemisone.org/cronos"
+        //     }
+        // });
 
-        if (provider.connected != true) {
-            var acc = await provider.enable();
-            web3.setProvider(provider);
-            account = acc[0];
-            $("#walletModal").modal("hide");
-            Init_Master();
-        }
-        else {
-        }
+        // if (provider.connected != true) {
+        //     var acc = await provider.enable();
+        //     web3.setProvider(provider);
+        //     account = acc[0];
+        //     $("#walletModal").modal("hide");
+        //     Init_Master();
+        // }
+        // else {
+        // }
     } catch (error) {
         provider = null;
         console.log(error);
