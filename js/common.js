@@ -1,6 +1,7 @@
 var l;
 var oneDaySecond = 15;
 var cycleDays = 14;
+var claimDelay = 7;
 var twoWeekSecond = oneDaySecond * cycleDays;
 var lockPeriod = 56;
 var withdrawDelay = 28;

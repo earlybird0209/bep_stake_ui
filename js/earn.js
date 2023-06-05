@@ -1,24 +1,4 @@
-async function TakeAction(id, action) {
-    try {
-        //0 = compound
-        //1 = claim
-        //2 = withdraw
-        return;
-        await contractBscStake.methods.InitiateAction(id.toString(), action.toString())
-            .send({
-                from: account
-            })
-            .on("receipt", function (receipt) {
-                Init_Earn();
-            })
-            .on("error", function (error) {
 
-            });
-    }
-    catch (error) {
-
-    }
-}
 
 async function Claim() {
     try {
@@ -91,7 +71,7 @@ async function Deposit() {
 
         value = web3.utils.toWei(value);
 
-        await contractBscStake.methods.deposit(value)
+        await contractBscStake.methods.Deposit(value)
             .send({
                 from: account
             })

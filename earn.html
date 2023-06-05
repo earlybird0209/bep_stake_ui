@@ -295,7 +295,7 @@
                     var userData = await GetUserInfoAccount();
 
                     //condition is equal for compound and initiate claim
-                    var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0);
+                    var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0 && Number(userData.LastCompoundDate) < now);
                     if(!isCompoundEnabled){
                         $("#reinvest-button").attr("disabled", 'true')
                         $("#initiate-claim-button").attr("disabled", 'true')
@@ -303,8 +303,7 @@
                         $('#reinvest-button').removeAttr('disabled');
                         $('#initiate-claim-button').removeAttr('disabled');
                     }
-
-                    var isClaimEnabled = (Number(userData.ClaimInitiateDate) != 0 && now > Number(userData.ClaimInitiateDate) + 7 * oneDaySecond);
+                    var isClaimEnabled = (!IsFriday(now) && Number(userData.ClaimInitiateDate) != 0 && now > Number(userData.ClaimInitiateDate) + claimDelay * oneDaySecond);
                     if(!isClaimEnabled){
                         $('#claim-button').attr('disabled', 'true');
                     }else{
@@ -341,19 +340,19 @@
                     deposits.forEach(depo => {
                         var lastRewardTime = Number(depo.lastRewardTime);
                         var lastRewardTimeText = "X";
-                        if (lastRewardTime > 0) {
+                        if (lastRewardTime < now) {
                             lastRewardTimeText = (new Date(lastRewardTime * 1000)).toLocaleString();
                         }
-                        var isRelockEnabled = (now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) ? true : false; 
-                        var isInitiateWithdrawEnabled = (count != 0 && IsFriday(now) && (Number(depo.withdrawableDate)) == 0 && Number(depo.currentState) <= 1 && now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) 
+                        var isRelockEnabled = (now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) && ((Number(depo.withdrawableDate)) == 0); 
+                        var isInitiateWithdrawEnabled = (IsFriday(now) && (Number(depo.withdrawableDate)) == 0 && Number(depo.currentState) <= 2 && now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) 
                             ? true : false;
-                        var isWithdrawEnabled = (count != 0 && (Number(depo.withdrawableDate)) != 0 && now > (Number(depo.withdrawableDate)))
+                        var isWithdrawEnabled = ((Number(depo.withdrawableDate)) != 0 && now > (Number(depo.withdrawableDate)))
                             ? true : false;
                         totalDepos += Number(web3.utils.fromWei(depo.amount.toString()));
                         if(count > 0){
                             tableHtml += `<tr>
                                 <td>${(new Date(Number(depo.createdTime) * 1000).toLocaleString())}</td>
-                                <td>${depo.isCompound == "0" ? "Deposit" : "Compound"}</td>
+                                <td>${depo.currentState != "2" ? "Deposit" : "Compound"}</td>
                                 <td>${Number(web3.utils.fromWei(depo.amount.toString())).toFixed(2)} USDT</td>
                                 <td>${lastRewardTimeText}</td>
                                 <td>${((depo.withdrawableDate)) == "0" ? "No" : "Yes"}</td>
@@ -366,7 +365,7 @@
                         else{
                             tableHtml += `<tr>
                                 <td>${(new Date(Number(depo.createdTime) * 1000).toLocaleString())}</td>
-                                <td>${depo.isCompound == "0" ? "Deposit" : "Compound"}</td>
+                                <td>Deposit</td>
                                 <td>${Number(web3.utils.fromWei(depo.amount.toString())).toFixed(2)} USDT</td>
                                 <td>${lastRewardTimeText}</td>
                                 <td>${((depo.withdrawableDate)) == "0" ? "No" : "Yes"}</td>
