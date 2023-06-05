@@ -260,7 +260,7 @@ const abiStake = [
         "type": "uint256"
       }
     ],
-    "name": "Deposit",
+    "name": "DepositComplete",
     "type": "event"
   },
   {
@@ -280,6 +280,50 @@ const abiStake = [
       }
     ],
     "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "depoNumber",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      }
+    ],
+    "name": "RelockComplete",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      }
+    ],
+    "name": "SetClaimLimit",
     "type": "event"
   },
   {
@@ -317,6 +361,25 @@ const abiStake = [
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      }
+    ],
+    "name": "SetWithdrawLimit",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "user",
@@ -335,7 +398,7 @@ const abiStake = [
         "type": "uint256"
       }
     ],
-    "name": "UserWithdraw",
+    "name": "WithdrawComplete",
     "type": "event"
   },
   {
@@ -366,12 +429,110 @@ const abiStake = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_claimLimit",
+        "type": "uint256"
+      }
+    ],
+    "name": "ChangeClaimLimit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_EmergencyfeeWallet",
         "type": "address"
       }
     ],
     "name": "ChangeEmergencyfeeAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_depositFeeBP",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_withdrawFeeBP",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_compoundFeeBP",
+        "type": "uint256"
+      }
+    ],
+    "name": "ChangeFees",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_newFriday",
+        "type": "uint256"
+      }
+    ],
+    "name": "ChangeFriday",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_NFT",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_NFT2",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_NFT3",
+        "type": "address"
+      }
+    ],
+    "name": "ChangeNFTcontract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_withdrawLimit",
+        "type": "uint256"
+      }
+    ],
+    "name": "ChangeWithdrawLimit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newaddy",
+        "type": "address"
+      }
+    ],
+    "name": "ChangeWithdrawalAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -417,6 +578,26 @@ const abiStake = [
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Deposit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "Destroy",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "EmergencyfeeWallet",
     "outputs": [
@@ -440,6 +621,13 @@ const abiStake = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "Initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -504,6 +692,24 @@ const abiStake = [
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tokenAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "RecoverTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_depo",
         "type": "uint256"
@@ -515,16 +721,41 @@ const abiStake = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "USDT",
-    "outputs": [
+    "inputs": [
       {
-        "internalType": "contract IBEP20",
-        "name": "",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "_seconds_per_day",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_warm_up_period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_unlock_period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_initiate_delay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_reward_period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_withdraw_delay",
+        "type": "uint256"
       }
     ],
-    "stateMutability": "view",
+    "name": "Safety",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -563,96 +794,11 @@ const abiStake = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_depositFeeBP",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_withdrawFeeBP",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_compoundFeeBP",
+        "name": "_amount",
         "type": "uint256"
       }
     ],
-    "name": "changeFees",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_newFriday",
-        "type": "uint256"
-      }
-    ],
-    "name": "changeFriday",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_NFT",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_NFT2",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_NFT3",
-        "type": "address"
-      }
-    ],
-    "name": "changeNFTcontract",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_withdrawLimit",
-        "type": "uint256"
-      }
-    ],
-    "name": "changeWithdraw_Limit",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_newaddy",
-        "type": "address"
-      }
-    ],
-    "name": "changeWithdrawalAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_claimLimit",
-        "type": "uint256"
-      }
-    ],
-    "name": "changeclaim_Limit",
+    "name": "WithdrawByOwnder",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -681,19 +827,6 @@ const abiStake = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "deposit",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -733,26 +866,6 @@ const abiStake = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAmount",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -813,11 +926,6 @@ const abiStake = [
           {
             "internalType": "uint256",
             "name": "currentState",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "isCompound",
             "type": "uint256"
           }
         ],
@@ -925,31 +1033,6 @@ const abiStake = [
   },
   {
     "inputs": [],
-    "name": "pew",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_tokenAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tokenAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "recoverTokens",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -966,44 +1049,6 @@ const abiStake = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_seconds_per_day",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_warm_up_period",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_unlock_period",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_initiate_delay",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_reward_period",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_withdraw_delay",
-        "type": "uint256"
-      }
-    ],
-    "name": "safety",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1081,6 +1126,11 @@ const abiStake = [
       {
         "internalType": "uint256",
         "name": "ClaimInitiateDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "LastCompoundDate",
         "type": "uint256"
       }
     ],
