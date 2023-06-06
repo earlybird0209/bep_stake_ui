@@ -341,7 +341,7 @@
                             lastRewardTimeText = (new Date(lastRewardTime * 1000)).toLocaleString();
                         }
                         var isRelockEnabled = (now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) && ((Number(depo.withdrawableDate)) == 0); 
-                        var isInitiateWithdrawEnabled = (IsFriday(now) && (Number(depo.withdrawableDate)) == 0 && Number(depo.currentState) <= 2 && now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) 
+                        var isInitiateWithdrawEnabled = ( (Number(depo.withdrawableDate)) == 0 && Number(depo.currentState) <= 2 && now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) 
                             ? true : false;
                         var isWithdrawEnabled = ((Number(depo.withdrawableDate)) != 0 && now > (Number(depo.withdrawableDate)))
                             ? true : false;
@@ -366,7 +366,7 @@
                                 <td>${Number(web3.utils.fromWei(depo.amount.toString())).toFixed(2)} USDT</td>
                                 <td>${lastRewardTimeText}</td>
                                 <td>${((depo.withdrawableDate)) == "0" ? "No" : "Yes"}</td>
-                                <td></td>
+                                <td><button class="btn btn-gold fs-5 " ${isRelockEnabled?"":"disabled"} onclick="RelockDeposit(${count});">Re-Lock</button></td>
                                 <td></td>
                                 <td></td>
                                 </tr>`;
