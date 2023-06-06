@@ -340,11 +340,9 @@
                         if (lastRewardTime < now) {
                             lastRewardTimeText = (new Date(lastRewardTime * 1000)).toLocaleString();
                         }
+                        //Relock and Initiate withdraw condition are  equal
                         var isRelockEnabled = (now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) && ((Number(depo.withdrawableDate)) == 0); 
-                        var isInitiateWithdrawEnabled = ( (Number(depo.withdrawableDate)) == 0 && Number(depo.currentState) <= 2 && now > Number(depo.lockedTime) + lockPeriod * oneDaySecond) 
-                            ? true : false;
                         var isWithdrawEnabled = ((Number(depo.withdrawableDate)) != 0 && now > (Number(depo.withdrawableDate)))
-                            ? true : false;
                         totalDepos += Number(web3.utils.fromWei(depo.amount.toString()));
                         if(count > 0){
                             tableHtml += `<tr>
@@ -354,7 +352,7 @@
                                 <td>${lastRewardTimeText}</td>
                                 <td>${((depo.withdrawableDate)) == "0" ? "No" : "Yes"}</td>
                                 <td><button class="btn btn-gold fs-5 " ${isRelockEnabled?"":"disabled"} onclick="RelockDeposit(${count});">Re-Lock</button></td>
-                                <td><button class="btn btn-warning fs-5" ${isInitiateWithdrawEnabled?"":"disabled"} onclick="InitiateWithdraw(${count});">Initiate Withdraw</button></td>
+                                <td><button class="btn btn-warning fs-5" ${isRelockEnabled?"":"disabled"} onclick="InitiateWithdraw(${count});">Initiate Withdraw</button></td>
                                 <td><button class="btn btn-warning fs-5" ${isWithdrawEnabled?"":"disabled"} onclick="WithdrawDeposit(${count});">Withdraw</button></td>
                                 </tr>`;
                         }
