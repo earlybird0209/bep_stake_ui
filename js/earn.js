@@ -242,7 +242,7 @@ async function ChangeWithdrawAddr() {
             return;
         }
 
-        await contractBscStake.methods.changeWithdrawalAddress(target)
+        await contractBscStake.methods.ChangeWithdrawalAddress(target)
             .send({
                 from: account
             })
