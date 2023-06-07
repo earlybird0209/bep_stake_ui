@@ -226,14 +226,14 @@
                     <h3 style="margin-left:1rem;" class="mb-3 text-gold">Deposit USDT<span style="float:right;"><i class="bx bx-x" data-bs-dismiss="modal"></i></span></h3>
                     <hr />
                     <div class="justify-content-center align-items-center text-center p-2" style="margin:0;">
-                        <h5 class="" style="text-align:left!important;">Balance: <span id="usdbalance3"></span></h5>
+                        <h5 class="" style="text-align:left!important;">Approved: <span id="usdAllowance"></span></h5>
                         <div class="input-group mb-3 mt-3">
                             <input id="inputDeposit" type="number" class="form-control" placeholder="0.00">
                             <div class="input-group-append">
                                 <span class="input-group-text">USDT</span>
                             </div>
                         </div>
-                        <h6 style="text-align:left!important;">Minimum Deposit is 1000 USDT</h6>
+                        <h6 style="text-align:left!important;">Minimum First Deposit is 1000 USDT</h6>
                         <button id="btn-deposit" class="mt-3 btn-gold" onclick="Deposit();" style="display:none;">
                             DEPOSIT
                         </button>
@@ -314,10 +314,12 @@
                     
                     var usdtBalance = await contractBscUSD.methods.balanceOf(account).call();
                     usdtBalance = Number(web3.utils.fromWei(usdtBalance.toString()));
+                    var allowance = await contractBscUSD.methods.allowance(account, caStake).call();
+                    allowance = Number(web3.utils.fromWei(allowance));    
                     $("#usdbalance").text(formatter.format(usdtBalance) + " USDT");
-                    $("#usdbalance3").text(formatter.format(usdtBalance) + " USDT");
+                    $("#usdAllowance").text(formatter.format(allowance) + " USDT");
 
-                    if (await IsAllowed_Stake()) {
+                    if (await IsAllowed_Stake(userData.NoOfDeposits)) {
                         $("#btn-approve").hide();
                         $("#btn-deposit").show();
                     } else {

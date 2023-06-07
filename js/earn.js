@@ -127,12 +127,15 @@ async function Approve_Stake() {
     }
 }
 
-async function IsAllowed_Stake() {
+async function IsAllowed_Stake(NoOfDeposits) {
     try {
         var amount = await contractBscUSD.methods.allowance(account, caStake).call();
         amount = Number(web3.utils.fromWei(amount));        
 
         if (amount >= 1000) {
+            return true;
+        }
+        if(NoOfDeposits > 0 && amount > 1){
             return true;
         }
 
