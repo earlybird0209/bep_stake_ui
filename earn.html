@@ -292,12 +292,16 @@
                     var userData = await GetUserInfoAccount();
 
                     //condition is equal for compound and initiate claim
-                    var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0 && Number(userData.LastCompoundDate) < now);
+                    var isCompoundEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) + twoWeekSecond < now && Number(userData.LastCompoundDate) + twoWeekSecond < now);
                     if(!isCompoundEnabled){
                         $("#reinvest-button").attr("disabled", 'true')
-                        $("#initiate-claim-button").attr("disabled", 'true')
                     }else{
                         $('#reinvest-button').removeAttr('disabled');
+                    }
+                    var isIniitateClaimEnabled = (IsFriday(now) && Number(userData.ClaimInitiateDate) == 0 && Number(userData.LastCompoundDate) + twoWeekSecond < now);
+                    if(!isIniitateClaimEnabled){
+                        $("#initiate-claim-button").attr("disabled", 'true')
+                    }else{
                         $('#initiate-claim-button').removeAttr('disabled');
                     }
                     var isClaimEnabled = (!IsFriday(now) && Number(userData.ClaimInitiateDate) != 0 && now > Number(userData.ClaimInitiateDate) + claimDelay * oneDaySecond);
