@@ -1,5 +1,5 @@
 var l;
-var oneDaySecond = 15;
+var oneDaySecond = 86400;
 var cycleDays = 14;
 var claimDelay = 7;
 var twoWeekSecond = oneDaySecond * cycleDays;
