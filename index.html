@@ -161,7 +161,7 @@
                     var nfts2 = await contractBsc2.methods.balanceOf(account).call();
                     var nfts3 = await contractBsc3.methods.balanceOf(account).call();
 
-                    if (Number(nfts) > 0) {
+                    if (Number(nfts) > 0 || Number(nfts2) > 0 || Number(nfts3) > 0 ) {
                         $("#btn-mint").hide();
                         $("#btn-approve").hide();
                         $("#btn-connect").hide();
@@ -193,7 +193,7 @@
 
         async function Mint() {
             try {
-                await contractBsc.methods.safeMint()
+                await contractBsc3.methods.safeMint()
                     .send({
                         from: account
                     })
