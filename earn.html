@@ -412,9 +412,9 @@
             var days, hours, minutes, seconds;
             var countdown = document.getElementById("tiles");
 
-            days = 0;
-
-            hours = 0;
+            days = pad(parseInt(seconds_left / 3600 / 24));
+            seconds_left = seconds_left % (3600 * 24)
+            hours = pad(parseInt(seconds_left / 3600));
             seconds_left = seconds_left % 3600;
 
             minutes = pad(parseInt(seconds_left / 60));
