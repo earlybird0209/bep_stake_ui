@@ -332,6 +332,25 @@ const abiStake = [
       {
         "indexed": false,
         "internalType": "uint256",
+        "name": "newRate",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      }
+    ],
+    "name": "SetDropRate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
         "name": "depositFeeBP",
         "type": "uint256"
       },
@@ -374,6 +393,25 @@ const abiStake = [
       }
     ],
     "name": "SetLimit",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "time",
+        "type": "uint256"
+      }
+    ],
+    "name": "SetToken",
     "type": "event"
   },
   {
@@ -435,6 +473,19 @@ const abiStake = [
       }
     ],
     "name": "ChangeClaimLimit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newDrop",
+        "type": "uint256"
+      }
+    ],
+    "name": "ChangeDropRate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -507,6 +558,57 @@ const abiStake = [
       }
     ],
     "name": "ChangeNFTcontract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_seconds_per_day",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_warm_up_period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_unlock_period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_initiate_delay",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_reward_period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_withdraw_delay",
+        "type": "uint256"
+      }
+    ],
+    "name": "ChangePeriods",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tokenAddr",
+        "type": "address"
+      }
+    ],
+    "name": "ChangeToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -711,44 +813,6 @@ const abiStake = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_seconds_per_day",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_warm_up_period",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_unlock_period",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_initiate_delay",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_reward_period",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_withdraw_delay",
-        "type": "uint256"
-      }
-    ],
-    "name": "Safety",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "",
         "type": "uint256"
       }
@@ -886,6 +950,19 @@ const abiStake = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
