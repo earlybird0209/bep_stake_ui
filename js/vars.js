@@ -18,7 +18,7 @@ const rpcs = {
     },
     BSC: {
         chainid: 56,
-        url: "https://bsc-dataseed.binance.org/",
+        url: "https://bsc.blockpi.network/v1/rpc/public",
         symbol: "BNB",
         img: "bsc.png",
         rpcToAdd: {
